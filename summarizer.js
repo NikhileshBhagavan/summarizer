@@ -3,6 +3,7 @@ function showuploadPage() {
     document.getElementById("summary").style.display = "none";
     document.getElementById("uploadPage").style.display = "block";
 }
+console.log(config);
 function showLoader() {
     document.getElementById("uploadPage").style.display = "none";
     document.getElementById("loader").style.display = "flex";
@@ -50,7 +51,7 @@ function getPoints(text) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'
+                'Authorization': config.OPENAI_API_TOKEN
             },
             body: body
         };
@@ -98,7 +99,7 @@ var loadImgFile = function (event) {
     $.ajax({
         method: 'POST',
         url: 'https://api.api-ninjas.com/v1/imagetotext',
-        headers: { 'X-Api-Key': '+h3s5SVmtltxcFN3iL1P/w==ZoPjD93MdmCkTcN9', },
+        headers: { 'X-Api-Key': config.IMAGE_API_TOKEN, },
         data: formData,
         enctype: 'multipart/form-data',
         processData: false,
@@ -149,7 +150,7 @@ var loadPdfFile = function (event) {
                 method: 'POST',
                 url: 'https://pdf-to-text-converter.p.rapidapi.com/api/pdf-to-text/convert',
                 headers: {
-                    'X-RapidAPI-Key': '4473b90c1cmsh0df827682b7996cp1b0523jsn1a8cf51f0c37',
+                    'X-RapidAPI-Key': config.PDF_API_TOKEN,
                     'X-RapidAPI-Host': 'pdf-to-text-converter.p.rapidapi.com',
                 },
                 data: formData,
