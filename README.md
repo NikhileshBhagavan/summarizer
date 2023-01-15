@@ -16,4 +16,4 @@ used graphical representations with flash cards for better understanding.
  * used flash cards to graphical represent the important points.
 
 ## Video demo
-link for video demo : https://drive.google.com/file/d/1GforSuXCQPKKoxZoYk5dTanQhtnW8QYc/view?usp=share_link
+link : https://drive.google.com/file/d/1GforSuXCQPKKoxZoYk5dTanQhtnW8QYc/view?usp=share_link
