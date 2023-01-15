@@ -50,7 +50,7 @@ function getPoints(text) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer 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'
+                'Authorization': 'Bearer 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'
             },
             body: body
         };
@@ -88,6 +88,7 @@ function getPoints(text) {
     }
 
     console.log(points);
+    console.log(points.length);
     return points;
 }
 var loadImgFile = function (event) {
@@ -180,11 +181,16 @@ var loadPdfFile = function (event) {
 
 }
 
-function makeFlashCards(contentArray) {
+function makeFlashCards(arr) {
     console.log("here");
-    console.log(contentArray);
-    //var contentArray = ["suraj is a good boy, he is fan of power star pawan kalyan", "ashok", "vishnu", "nikhilesh"];
-
+    console.log(arr);
+    var contentArray = [];
+    contentArray = contentArray.concat(arr);
+    console.log("statements");
+    console.log(arr.length);
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+    }
     let synth = speechSynthesis;
     isSpeaking = true;
 
@@ -200,6 +206,7 @@ function makeFlashCards(contentArray) {
 
     //synth.addEventListener("voiceschanged", voices);
     flashcardMaker = (text, index) => {
+        console.log(index, text);
         const flashcard = document.createElement("div");
         const point = document.createElement('h2');
         const vol = document.createElement('i');
@@ -233,7 +240,7 @@ function makeFlashCards(contentArray) {
     }
 
 
-    contentArray.forEach(flashcardMaker);
+    contentArray.forEach((text, index) => { flashcardMaker(text, index) });
 
 }
 
