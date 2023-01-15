@@ -1,22 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="summarizer.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Summarizer</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="summarizer.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <h1> Summarizer </h1>
-    <input type="file" id="imgInp" accept="image/*" onchange="loadImgFile(event)">
-    <br>
-    <input type="file" id="pdfInp" accept="application/pdf" onchange="loadPdfFile(event)">
+    <div id="uploadPage">
+        <h1 style="margin-top:30px;">Upload Files</h1>
+        <form id="upload-form" action="">
 
+            <label for="image-upload">Upload an image:</label>
+            <input type="file" id="image-upload" accept="image/*" onchange="loadImgFile(event)">
+
+            <label for="pdf-upload">Upload a PDF:</label>
+            <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPdfFile(event)">
+
+            <label for="text-input">Enter text:</label>
+            <input type="text" id="text-input" name="uploadText" required="true">
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div id="loader" style="height:100vh;display:flex;justify-content:center;align-items:center;">
+
+        <h1 style="color:black;font-size:4em;">SUMMARIZING</h1>
+        <div class="lds-heart">
+            <div></div>
+        </div>
+        <div class="lds-heart">
+            <div></div>
+        </div>
+        <div class="lds-heart">
+            <div></div>
+        </div>
+    </div>
+
+
+
+    <div id="summary">
+        <main>
+
+            <header>
+                <div class="container">
+                    <div id="header">
+                        <h1 style="margin-bottom:0px;"> Summary </h1>
+                    </div>
+                </div>
+            </header>
+
+            <section>
+                <div class="container">
+                    <div id="flashcards"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
     <script src="summarizer.js"></script>
 </body>
 
