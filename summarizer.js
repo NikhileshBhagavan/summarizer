@@ -16,7 +16,7 @@ function showSummary() {
     document.getElementById("uploadPage").style.display = "none";
 
 }
-function getPoints(text) {
+async function getPoints(text) {
 
     let sentences = text.split(".");
 
@@ -56,7 +56,7 @@ function getPoints(text) {
             body: body
         };
 
-        fetch('https://api.openai.com/v1/completions', options)
+        await fetch('https://api.openai.com/v1/completions', options)
             .then(async (response) => {
                 // console.log(response);
                 let k = await response.json();
@@ -84,11 +84,15 @@ function getPoints(text) {
                 console.log(response);
 
             })
-            .catch(err => { console.error(err) });
+            .catch(err => {
+                alert("Error in getting information, Try Again ...");
+                location.reload();
+            });
 
     }
-
+    console.log(["abc", "cde"]);
     console.log(points);
+    console.log(points[1]);
     console.log(points.length);
     return points;
 }
@@ -114,23 +118,24 @@ var loadImgFile = function (event) {
             fin_text.trim();
             console.log(fin_text);
             let arr = getPoints(fin_text);
-            console.log(arr);
-            makeFlashCards(arr);
-            showSummary();
+            arr.then((res) => {
+                makeFlashCards(res);
+                showSummary();
+            });
+
 
 
 
         },
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
             alert("Error in getting information, Upload Again ...");
-            showuploadPage();
+            location.reload();
         }
     });
 
 };
 
 var loadPdfFile = function (event) {
-    let c = 0;
     let pages_count = 1;
     console.log(event.target.files[0]);
     var input = event.target.files[0];
@@ -160,22 +165,23 @@ var loadPdfFile = function (event) {
                 success: function (result) {
                     console.log(result);
                     //document.getElementById("headingThree").innerText = result;
-                    let a = getPoints(fin_text);
-                    console.log(a);
-                    arr = arr.concat(a);
+                    let a = getPoints(result);
+                    a.then((res) => {
+                        arr = arr.concat(res);
+                    });
                 },
                 error: function ajaxError(jqXHR, textStatus, errorThrown) {
                     alert("Error in getting information, Upload Again ...");
-                    c = 1;
-                    showuploadPage();
+
+                    location.reload();
                 }
             });
         }
-        if (c === 0) {
-            console.log(arr);
-            makeFlashCards(arr);
-            showSummary();
-        }
+
+        console.log(arr);
+        makeFlashCards(arr);
+        showSummary();
+
 
     }
 
@@ -253,8 +259,13 @@ $(document).ready(function () {
             return obj;
         }, {});
         console.log(data);
-        makeFlashCards(data["uploadText"]);
-        showSummary();
+        let text = data["uploadText"];
+        console.log(text);
+        let arr = getPoints(text);
+        arr.then((res) => {
+            makeFlashCards(res);
+            showSummary();
+        });
         return false;
     });
 });
